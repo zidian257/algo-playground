@@ -1,0 +1,16 @@
+{
+  "name": "template",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "study": "pm2 start playground.yaml --no-daemon && pm2 logs",
+    "new": "krishna-pg new"
+  },
+  "keywords": [],
+  "license": "ISC",
+  "devDependencies": {
+    "pm2": "^4.1.2",
+    "prettier": "^1.19.1"
+  }
+}
