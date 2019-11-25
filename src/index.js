@@ -1,1 +1,1 @@
-require("./isPalindromeNum");
+require('./isNumberPalindrome');
