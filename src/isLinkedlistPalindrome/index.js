@@ -75,6 +75,6 @@ const isLinkedListPalindrome = linklist => {
   return true;
 };
 
-const gg = isLinkedListPalindrome(l3);
+const gg = isLinkedListPalindrome(l1);
 
 console.log('gg:', gg);
