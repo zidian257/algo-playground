@@ -21,6 +21,7 @@ class LN {
 
 const l1 = new LN(2, new LN(4));
 const l2 = new LN(4, new LN(2, new LN(2, new LN(4))));
+const l3 = new LN(2, new LN(4, new LN(2)));
 
 const isLinkedListPalindromeStack = linklist => {
   let stack = [];
@@ -40,10 +41,40 @@ const isLinkedListPalindromeStack = linklist => {
   return true;
 };
 
+const isLinkedListPalindrome = linklist => {
+  let temp = linklist;
+  let length = 0;
+  let pre = null;
 
+  while (temp) {
+    length += 1;
+    temp = temp.next;
+  }
 
+  let curr = linklist;
 
+  for (let i = 0; i < length / 2; ++i) {
+    temp = curr.next;
+    curr.next = pre;
 
+    pre = curr;
+    curr = temp;
+  }
 
-const gg = isLinkedListPalindromeStack(l2);
+  if (length % 2 === 1) {
+    pre = pre.next;
+  }
+
+  while (pre && curr) {
+    if (pre.val !== curr.val) {
+      return false;
+    }
+    pre = pre.next;
+    curr = curr.next;
+  }
+  return true;
+};
+
+const gg = isLinkedListPalindrome(l3);
+
 console.log('gg:', gg);
