@@ -13,7 +13,7 @@
 // 你从左向右读是 -232，但从右向左读则是 232-，和 -232 不一样，因此它不是一个回文数字，你要返回 false。
 
 const isPalindromeString = num => {
-  if (!num) {
+  if (!num || num < 0) {
     return false;
   }
 
@@ -32,7 +32,7 @@ const isPalindromeString = num => {
 };
 
 const isPalindromeString2 = num => {
-  if (typeof (num) !== 'number') {
+  if (typeof (num) !== 'number' || num < 0) {
     return false;
   }
   let y = 0;
@@ -47,5 +47,5 @@ const isPalindromeString2 = num => {
   return y === num
 };
 
-const gg = isPalindromeString2(0);
+const gg = isPalindromeString2(-32);
 console.log('gg:', gg);

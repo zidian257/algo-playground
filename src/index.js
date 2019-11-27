@@ -1,1 +1,1 @@
-require("./getMissing");
+require("./isNumberPalindrome");
