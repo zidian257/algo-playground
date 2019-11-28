@@ -1,1 +1,1 @@
-require("./isNumberPalindrome");
+require("./binaryTreeMinDepth");
