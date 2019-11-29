@@ -37,24 +37,49 @@ class Node {
     this.next = next;
   }
 }
+// null
+// 12 > max > null   min 12
+// 20 > 12 > max > null   min 12
+// 2 > 12 > 20 > 12 > max > null  min 2
 
 class StackWithLL {
-  head = null
+  head = null;
+  min = Number.MAX_VALUE;
 
+  push(val) {
+    if (val <= this.min) {
+      this.head = new Node(this.min, this.head);
+      this.min = val;
+    }
+    this.head = new Node(val, this.head);
+  }
 
+  pop() {
+    if (this.head.val === this.min) {
+      this.min = this.head.next.val;
+      this.head = this.head.next.next;
+    } else {
+      this.head = this.head.next;
+    }
+  }
 
+  peak() {
+    return this.head.val;
+  }
+
+  getMin() {
+    return this.min;
+  }
 }
 
-const stack = new Stack();
+const stack = new StackWithLL();
 
 stack.push(3);
 stack.push(2);
 stack.push(1);
 stack.push(4);
 
-stack.pop();
 
-stack.pop();
 const min = stack.getMin();
 
 console.log('min:', min);
