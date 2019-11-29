@@ -1,1 +1,1 @@
-require("./binaryTreeMinDepth");
+require("./stackMin");
