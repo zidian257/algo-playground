@@ -1,3 +1,6 @@
+// 描述
+// 这个题目说的是，你要实现一个栈，除了提供 push，pop，top 等常用函数，还需要提供一个函数在 O(1) 时间内取得这个栈里的最小元素。
+
 class Stack {
   _stack = [];
   _min = [Number.MAX_VALUE];
