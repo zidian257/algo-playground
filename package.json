@@ -4,12 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "study": "pm2 start playground.yaml --no-daemon&&pm2 logs",
-    "new": "krishna-pg new"
+    "new": "krishna-pg new",
+    "study": "watch 'node ./src/index' src --wait=0 --interval=0.3"
   },
   "keywords": [],
   "license": "ISC",
   "devDependencies": {
-    "prettier": "^1.19.1"
+    "prettier": "^1.19.1",
+    "watch": "^1.0.2"
   }
 }

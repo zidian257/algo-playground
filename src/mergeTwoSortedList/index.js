@@ -57,3 +57,5 @@ const mm = mergeTwoSortedList(_L1, _L2);
 
 console.log('mm:', mm);
 console.log('gg:', gg);
+
+console.log('fad   f      s ');
