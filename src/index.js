@@ -1,1 +1,2 @@
-require("./mergeTwoSortedList");
+require("./mergeTwoSortedArray");
+console.log('--------------------------------------------------------')
