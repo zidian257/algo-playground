@@ -1,2 +1,2 @@
-require("./maxBinTreeDepth"); 
+require("./getMajority"); 
   console.log('------------------------------------------------------------')
