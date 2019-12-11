@@ -65,5 +65,5 @@ gg.put(2, 2);
 gg.put(3, 3);
 gg.put(4, 4);
 
-
-console.log('head:', gg.head);
+gg.get(3)
+console.log('head:', gg.get(4));
