@@ -1,2 +1,2 @@
-require("./lengthOfLongestSubstring"); 
+require("./longestPalindromeSubString"); 
   console.log('------------------------------------------------------------')
