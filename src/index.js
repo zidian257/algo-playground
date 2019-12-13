@@ -1,2 +1,2 @@
-require("./longestPalindromeSubString"); 
+require("./isLinkedListCircular"); 
   console.log('------------------------------------------------------------')
