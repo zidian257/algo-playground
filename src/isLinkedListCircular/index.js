@@ -13,9 +13,9 @@ cir.next = cir;
 let ll = new LN(3, new LN(4, cir));
 const isLinkedListCircular = list => {
   let s1 = list;
-  let s2 = s1;
+  let s2 = s1.next.next;
 
-  while (s1 && s2 && s2.next) {
+  while (s1 && s2.next) {
     if (s1 === s2) {
       return true;
     }
