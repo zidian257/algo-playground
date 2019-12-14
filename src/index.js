@@ -1,2 +1,2 @@
-require("./isLinkedListCircular"); 
+require("./crossedLinkedList"); 
   console.log('------------------------------------------------------------')
