@@ -30,3 +30,11 @@ const allParentheses = n => {
 const gg = allParentheses(4);
 
 console.log('gg:', gg);
+//
+// const allParenthesesDP = n => {
+//   let i, j;
+//   const d = [];
+//   for (i = 0; i < n; ++i) d.push([]);
+//
+//
+// };
