@@ -1,2 +1,2 @@
-require("./maxWater"); 
+require("./climbStair"); 
   console.log('------------------------------------------------------------')
