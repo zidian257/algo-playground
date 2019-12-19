@@ -1,2 +1,2 @@
-require("./levelOrderTraversalFromBottom"); 
+require("./inorderTraversal"); 
   console.log('------------------------------------------------------------')
