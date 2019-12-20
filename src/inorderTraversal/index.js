@@ -58,7 +58,7 @@ const inOrderTraversal = t => {
     ret.push(root.val)
     root = root.right
   }
-  
+
   return ret
 };
 const gg = inOrderTraversalRecursive(tt);

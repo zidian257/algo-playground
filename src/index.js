@@ -1,2 +1,2 @@
-require("./inorderTraversal"); 
+require("./binarySearch"); 
   console.log('------------------------------------------------------------')
