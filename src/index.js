@@ -1,2 +1,2 @@
-require("./binarySearch"); 
+require("./binSearchInsertPos"); 
   console.log('------------------------------------------------------------')
