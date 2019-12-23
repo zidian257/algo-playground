@@ -1,2 +1,2 @@
-require("./binSearchInsertPos"); 
+require("./binSearch2D"); 
   console.log('------------------------------------------------------------')
