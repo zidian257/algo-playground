@@ -1,2 +1,2 @@
-require("./binSearch2D"); 
+require("./isBinTreeBalance"); 
   console.log('------------------------------------------------------------')
