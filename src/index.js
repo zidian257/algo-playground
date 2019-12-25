@@ -1,2 +1,2 @@
-require("./isBinTreeBalance"); 
+require("./sumOfLinkedList"); 
   console.log('------------------------------------------------------------')
