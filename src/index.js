@@ -1,2 +1,2 @@
-require("./sumOfLinkedList"); 
+require("./uglyNum"); 
   console.log('------------------------------------------------------------')
