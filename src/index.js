@@ -1,2 +1,2 @@
-require("./isValidBST"); 
+require("./isValidBrackets"); 
   console.log('------------------------------------------------------------')
