@@ -1,2 +1,2 @@
-require("./maxProfit"); 
+require("./invertBinTree"); 
   console.log('------------------------------------------------------------')
