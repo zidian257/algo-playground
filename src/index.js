@@ -1,2 +1,2 @@
-require("./setZeroMatrix"); 
+require("./minSumOfPath"); 
   console.log('------------------------------------------------------------')
