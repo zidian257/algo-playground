@@ -43,6 +43,6 @@ const removeNthFromEnd = (n, l) => {
   return ret.next;
 };
 
-const gg = removeNthFromEnd(, L1);
+const gg = removeNthFromEnd(3, L1);
 
 console.log('gg:', gg);
