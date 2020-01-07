@@ -1,2 +1,2 @@
-require("./minSumOfPath"); 
+require("./removeNthFromEnd"); 
   console.log('------------------------------------------------------------')
