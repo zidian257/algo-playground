@@ -1,2 +1,2 @@
-require("./removeNthFromEnd"); 
+require("./threeNumSumToNum"); 
   console.log('------------------------------------------------------------')
