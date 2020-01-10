@@ -1,2 +1,2 @@
-require("./threeNumSumToNum"); 
+require("./sqrt"); 
   console.log('------------------------------------------------------------')
