@@ -1,2 +1,2 @@
-require("./sqrt"); 
+require("./singleNumInSortedArray"); 
   console.log('------------------------------------------------------------')
