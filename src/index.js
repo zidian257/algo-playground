@@ -1,2 +1,2 @@
-require("./singleNumInSortedArray"); 
+require("./zhuanquanquan"); 
   console.log('------------------------------------------------------------')
