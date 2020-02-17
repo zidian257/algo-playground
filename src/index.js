@@ -1,2 +1,2 @@
-require("./zhuanquanquan"); 
+require("./edge2graph"); 
   console.log('------------------------------------------------------------')
