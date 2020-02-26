@@ -1,53 +1,28 @@
+// 把一个图的边整理成树状结构
+
 const edges = [
-  { from: null, to: 'a' },
-  { from: 'a', to: 'b' },
-  { from: 'b', to: 'c' }
+  { parentId: null, id: 'a' },
+  { parentId: 'a', id: 'b' },
+  { parentId: 'b', id: 'c' }
 ];
 
-// todo
-// 假设边是有序的
+const vertices = new Map();
 
-const tree = {
-  id: 'a',
-  child: [
-    {
-      id: 'b',
-      child: [{}]
-    }
-  ]
-};
+for (let i = 0; i < edges.length; i++) {
+  vertices.set(edges[i].id, {
+    parent: edges[i].parentId,
+    id: edges[i].id,
+    children: []
+  });
+}
 
-class N {
-  constructor(id) {
-    this.id = id;
-    this.children = {};
+for (let i = 0; i < edges.length; i++) {
+  if (edges[i].parentId) {
+    const child = vertices.get(edges[i].id);
+    vertices.get(edges[i].parentId).children.push(child);
   }
 }
 
-const root = new N(edges[0].to);
+const ret = [...vertices.values()].filter(i => !i.parent);
 
-const [item, index] = findRoot(origin);
-
-const tree = new N(item.id);
-
-const stack = [];
-
-stack.push([item.id]);
-
-let p = tree;
-while (stack.length > 0) {
-  const curLvl = stack.pop();
-
-  const nextLvl = [];
-  while (curLvl.length > 0) {
-    const node = curLvl.pop();
-    for (let i = 0; i < origin.length; i++) {
-      if (origin[i].parentID === node.id) {
-        p.children[id] = new N(origin[i].id);
-        nextLvl.push(origin[i].id);
-      }
-    }
-  }
-
-  stack.push(nextLvl);
-}
+console.log('ret:', ret);
