@@ -1,2 +1,2 @@
-require("./edge2graph"); 
+require("./hammingDistance"); 
   console.log('------------------------------------------------------------')
