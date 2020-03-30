@@ -1,2 +1,2 @@
-require("./hammingDistance"); 
+require("./shuffleArray"); 
   console.log('------------------------------------------------------------')
