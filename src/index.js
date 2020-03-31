@@ -1,2 +1,2 @@
-require("./shuffleArray"); 
+require("./mergeIntervals"); 
   console.log('------------------------------------------------------------')
