@@ -1,2 +1,2 @@
-require("./mergeIntervals"); 
+require("./hasSumEqualToVal"); 
   console.log('------------------------------------------------------------')
