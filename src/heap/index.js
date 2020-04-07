@@ -42,6 +42,14 @@ class MinHeap {
     }
   };
 
+  percolatingDown = () => {
+    // todo
+  };
+
+  percolatingUp = () => {
+    // todo
+  };
+
   peak = () => this.heapArr.slice(1);
 
   _getParentIndex = index => Math.floor(index / 2);
@@ -56,7 +64,6 @@ class MinHeap {
 
   delMin = () => {
     // todo
-
   };
 }
 
