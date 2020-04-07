@@ -1,2 +1,2 @@
-require("./hasSumEqualToVal"); 
+require("./heap");
   console.log('------------------------------------------------------------')
