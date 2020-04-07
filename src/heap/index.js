@@ -35,11 +35,7 @@ class MinHeap {
 
       if (this.heapArr[targetIndex] < this.heapArr[parentIndex]) {
         this._swap(targetIndex, parentIndex);
-        this._swap(targetIndex, targetIndex - 1);
       } else {
-        if (this.heapArr[targetIndex] < this.heapArr[targetIndex - 1]) {
-          this._swap(targetIndex, targetIndex - 1);
-        }
         break;
       }
       targetIndex = parentIndex;
@@ -60,9 +56,10 @@ class MinHeap {
 
   delMin = () => {
     // todo
+
   };
 }
 
-const gg = new MinHeap([1, 2, 4, 3]);
+const gg = new MinHeap([1, 2, 4, 3, 23, 53, 5, 6]);
 
 console.log('gg.peak():', gg.peak());
