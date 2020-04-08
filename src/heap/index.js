@@ -20,9 +20,11 @@ class MinHeap {
       throw 'N/A';
     }
     this.heapArr = [null];
-    for (let i of arr) {
-      this.add(i);
-    }
+
+    this.build(arr);
+    // for (let i of arr) {
+    //   this.add(i);
+    // }
   }
 
   add = elem => {
@@ -42,12 +44,31 @@ class MinHeap {
     }
   };
 
-  percolatingDown = () => {
-    // todo
+  percolatingDown = pos => {
+
   };
 
-  percolatingUp = () => {
-    // todo
+  percolatingUp = pos => {
+    const target = this.heapArr[pos];
+    for (
+      ;
+      pos > 1 && target < this.heapArr[Math.floor(pos / 2)];
+      pos = Math.floor(pos / 2)
+    )
+      this.heapArr[pos] = this.heapArr[Math.floor(pos / 2)];
+
+    this.heapArr[pos] = target;
+  };
+
+  insert = elem => {
+    this.heapArr.push(elem);
+    this.percolatingUp(this.heapArr.length - 1);
+  };
+
+  build = arr => {
+    for (let i of arr) {
+      this.insert(i);
+    }
   };
 
   peak = () => this.heapArr.slice(1);
@@ -67,6 +88,6 @@ class MinHeap {
   };
 }
 
-const gg = new MinHeap([1, 2, 4, 3, 23, 53, 5, 6]);
+const gg = new MinHeap([7, 4, 3, 2, 53, 5, 6, 1]);
 
 console.log('gg.peak():', gg.peak());
