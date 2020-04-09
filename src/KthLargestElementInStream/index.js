@@ -18,12 +18,128 @@
 
 const s = [1, 5, 2, 8];
 
-const KthLargestEleInStream = arr => {
-  return { add, peak };
-};
+class MinHeap {
+  constructor(arr) {
+    this.heap = [null];
+    this.size = 0;
+    if (Array.isArray(arr) && arr.length !== 0) {
+      this.build(arr);
+    }
+  }
 
-const foo = KthLargestEleInStream(s);
+  percolatingDown = pos => {
+    const target = this.heap[pos];
+    let child;
 
-foo.add(9);
+    for (; pos * 2 <= this.size; pos = child) {
+      child = pos * 2;
+      if (child !== this.size && this.heap[child + 1] < this.heap[child])
+        child++;
 
-console.log('foo.peek():', foo.peek());
+      if (target > this.heap[child]) this.heap[pos] = this.heap[child];
+      else break;
+    }
+    this.heap[pos] = target;
+  };
+
+  percolatingUp = pos => {
+    const target = this.heap[pos];
+    for (
+      ;
+      pos > 1 && target < this.heap[Math.floor(pos / 2)];
+      pos = Math.floor(pos / 2)
+    )
+      this.heap[pos] = this.heap[Math.floor(pos / 2)];
+
+    this.heap[pos] = target;
+  };
+
+  insert = elem => {
+    this.heap.push(elem);
+    this.size++;
+    this.percolatingUp(this.heap.length - 1);
+  };
+
+  build = arr => {
+    for (let i of arr) {
+      this.insert(i);
+    }
+    this.size = arr.length;
+  };
+
+  peak = () => this.heap.slice(1);
+
+  poll = () => {
+    if (this.size === 0) {
+      return null;
+    }
+
+    const ret = this.heap[1];
+
+    this.heap[1] = this.heap[this.size];
+    this.size--;
+
+    this.percolatingDown(1);
+    this.heap.pop();
+
+    return ret;
+  };
+
+  heapSort = arr => {
+    if (arr.length !== 0) {
+      this.build(arr);
+    }
+
+    for (let i = this.size; i > 0; i--) {
+      this._swap(i, 1);
+      this.size--;
+      this.percolatingDown(1);
+    }
+    return this.peak();
+  };
+  _swap = (a, b) => {
+    const tmp = this.heap[a];
+    this.heap[a] = this.heap[b];
+    this.heap[b] = tmp;
+  };
+}
+
+class KthLargestEleInStream {
+  constructor(arr, k) {
+    this.heap = new MinHeap();
+    this.size = k;
+
+    if (!Array.isArray(arr)) {
+      throw 'not an array';
+    }
+
+    this.build(arr);
+  }
+
+  build = arr => {
+    for (let item of arr) {
+      this.insert(item);
+    }
+  };
+
+  insert = elem => {
+
+    if (this.heap.size !== this.size) {
+      this.heap.insert(elem);
+    } else {
+      if (this.heap.peak()[0] < elem) {
+        this.heap.poll();
+        this.heap.insert(elem);
+      }
+    }
+
+    return this.heap.peak()[0]
+  };
+}
+
+const foo = new KthLargestEleInStream([1, 5, 2, 8], 3);
+
+
+console.log('foo.insert(9):', foo.insert(9));
+console.log('foo.insert(0):', foo.insert(0));
+console.log('foo', foo);

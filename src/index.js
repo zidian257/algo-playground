@@ -1,2 +1,2 @@
-require("./heap");
+require("./KthLargestElementInStream/index.js");
   console.log('------------------------------------------------------------')

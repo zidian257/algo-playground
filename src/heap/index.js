@@ -54,6 +54,22 @@ class MinHeap {
 
   peak = () => this.heap.slice(1);
 
+  poll = () => {
+    if (this.size === 0) {
+      return null;
+    }
+
+    const ret = this.heap[1];
+
+    this.heap[1] = this.heap[this.size];
+    this.size--;
+
+    this.percolatingDown(1);
+    this.heap.pop();
+
+    return ret;
+  };
+
   heapSort = arr => {
     if (arr.length !== 0) {
       this.build(arr);
@@ -65,7 +81,6 @@ class MinHeap {
       this.percolatingDown(1);
     }
     return this.peak();
-
   };
   _swap = (a, b) => {
     const tmp = this.heap[a];
@@ -74,6 +89,6 @@ class MinHeap {
   };
 }
 
-const gg = new MinHeap();
-const mm = gg.heapSort([7, 10, 6, 23, 1, 22, 8, 433, 12]);
+const mm = new MinHeap([7, 10, 6, 23, 1, 22, 8, 433, 12]);
+
 console.log('mm:', mm);
