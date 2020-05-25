@@ -1,2 +1,2 @@
-require("./KthLargestElementInStream/index.js");
+require("./promise-all"); 
   console.log('------------------------------------------------------------')
