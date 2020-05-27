@@ -22,32 +22,50 @@ const qsort = arr => {
 const f = qsort(t);
 console.log('f:', f);
 
-
 const swap = (arr, i, j) => {
-  if (i === j) {
-    return
+  const temp = arr[i];
+  arr[i] = arr[j];
+  arr[j] = temp;
+};
+
+const partition = (arr, left, right, pivotIndex = left) => {
+  const pivot = arr[pivotIndex];
+
+  let i = left;
+  let j = right;
+
+  while (i <= j) {
+    while (arr[i] < pivot) i++;
+    while (arr[j] > pivot) j--;
+
+    if (i <= j) {
+      swap(arr, i, j);
+      i++;
+      j--;
+    }
   }
-  const temp = arr[i]
-  arr[i] = arr[j]
-  arr[j] = temp
-}
 
-const qsortInp = (arr, p = 0, q = arr.length - 1, pivotIndex = 0) => {
+  return i;
+};
+
+const qsortInp = (arr, left = 0, right = arr.length - 1) => {
   if (!Array.isArray(arr)) throw new Error('arr must be an array');
-  if (q - p >= 1) {
-    swap(arr, p, pivotIndex)
-    const pivot = arr[p];
+  let index;
+  const length = arr.length;
+  if (length > 1) {
+    index = partition(arr, left, right);
 
-    let pivotI = p
-
-    for (let i = p; i <= q; i++) {
-      if (arr[i] <= pivot) {
-        swap(arr, i, pivotI)
-
-      }
+    if (index - left > 1) {
+      qsortInp(arr, left, index - 1);
     }
 
-
-
+    if (right - index > 0) {
+      qsortInp(arr, index, right);
+    }
   }
+
+  return arr;
 };
+
+const gg = qsortInp(s)
+console.log('gg:', gg);
