@@ -1,2 +1,2 @@
-require("./promise-all"); 
+require("./sort-qsort"); 
   console.log('------------------------------------------------------------')
