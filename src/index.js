@@ -1,2 +1,2 @@
-require("./sort-qsort"); 
+require("./getPrime"); 
   console.log('------------------------------------------------------------')
