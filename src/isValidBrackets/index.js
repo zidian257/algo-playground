@@ -12,21 +12,33 @@
 //
 // 这里面虽然正好有一对小括号和一对中括号，但它们的顺序不对，括号间无法正确配对，因此这不是一个有效的括号序列。
 
-const str = '[]{{()}}';
+const s = '[]{{()}}';
 
-const isValidBrackets = str => {
-  let i = 0;
+const isValidParentheses = str => {
+  if (str.length === 0) {
+    return true;
+  }
+
   const stack = [];
+  const lefts = {
+    '[': ']',
+    '{': '}',
+    '(': ')'
+  };
 
-  for (let i = 0; i < str.length; ++i) {
-    if (str[i] === '(') stack.push(')');
-    else if (str[i] === '[') stack.push(']');
-    else if (str[i] === '{') stack.push('}');
-    else if (stack.length === 0 || str[i] !== stack.pop()) return false;
+  let curr;
+
+  for (let i = 0; i < str.length; i++) {
+    curr = str[i];
+    if (lefts[curr]) {
+      stack.push(lefts[curr]);
+    } else {
+      if (stack.pop() !== curr) {
+        return false;
+      }
+    }
   }
 
   return stack.length === 0;
 };
-
-const gg = isValidBrackets(str);
-console.log('gg:', gg);
+module.exports = { isValidParentheses };
