@@ -8,49 +8,103 @@
 //
 // abcba
 
-const s = 'babcbab';
+// const first = () =>
+//   new Promise((resovle, reject) => {
+//     console.log(1)
+//     const p = new Promise((resovle, reject) => {
+//       console.log(2)
+//       setTimeout(() => {
+//         console.log(3)
+//         resovle(4)
+//       }, 0)
+//       resovle(5)
+//     })
+//     resovle(6)
+//     p.then(arg => {
+//       console.log(arg)
+//     })
+//   })
+// first().then(arg => {
+//   console.log(arg)
+// })
+// console.log(7)
+
+// const longestPalindrome = str => {
+//   let maxCount = 0;
+//   let ret = str[0];
+//
+//   let p;
+//   let q;
+//   let count = 1;
+//
+//   for (let i = 0; i < str.length; ++i) {
+//     p = i;
+//     q = i;
+//     count = 1;
+//
+//     while (str[p] && str[q] && str[p] === str[q]) {
+//       count += 2;
+//       if (count > maxCount) {
+//         maxCount = count;
+//         ret = str.substring(p, q + 1);
+//       }
+//       p--;
+//       q++;
+//     }
+//
+//     p = i;
+//     q = i + 1;
+//     count = 2;
+//
+//     while (str[p] && str[q] && str[p] === str[q]) {
+//       count += 2;
+//       if (count > maxCount) {
+//         maxCount = count;
+//         ret = str.substring(p, q + 1);
+//       }
+//       p--;
+//       q++;
+//     }
+//   }
+//
+//   return ret;
+// };
+
+const expand = (str, left, right) => {
+  while (str[left] === str[right] && left >= 0 && right <= str.length - 1) {
+    left--;
+    right++;
+  }
+  return right - left - 1;
+};
+
+// aba
+// abba
 
 const longestPalindrome = str => {
-  let maxCount = 0;
-  let ret = str[0];
+  if (typeof str !== 'string') {
+    return -1;
+  }
+  if (str.length < 2) {
+    return str;
+  }
 
-  let p;
-  let q;
-  let count = 1;
+  let start;
+  let max = 0;
 
-  for (let i = 0; i < str.length; ++i) {
-    p = i;
-    q = i;
-    count = 1;
+  for (let i = 0; i < str.length; i++) {
+    const len1 = expand(str, i, i);
+    const len2 = expand(str, i, i + 1);
 
-    while (str[p] && str[q] && str[p] === str[q]) {
-      count += 2;
-      if (count > maxCount) {
-        maxCount = count;
-        ret = str.substring(p, q + 1);
-      }
-      p--;
-      q++;
-    }
+    const len = Math.max(len1, len2);
 
-    p = i;
-    q = i + 1;
-    count = 2;
-
-    while (str[p] && str[q] && str[p] === str[q]) {
-      count += 2;
-      if (count > maxCount) {
-        maxCount = count;
-        ret = str.substring(p, q + 1);
-      }
-      p--;
-      q++;
+    if (len > max) {
+      max = len;
+      start = i - Math.floor((len - 1) / 2);
     }
   }
 
-  return ret;
+  return str.substring(start, start + max);
 };
 
-const gg = longestPalindrome(s);
-
-console.log('gg:', gg);
+module.exports = { longestPalindrome };
