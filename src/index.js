@@ -1,2 +1,2 @@
-require("./reverse-linked-list");
+require("./sorting-3-unique-nums"); 
   console.log('------------------------------------------------------------')
