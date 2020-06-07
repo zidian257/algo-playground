@@ -1,2 +1,2 @@
-require("./first-and-last-index-in-sorted"); 
+require("./reverse-linked-list");
   console.log('------------------------------------------------------------')
