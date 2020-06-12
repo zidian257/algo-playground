@@ -1,2 +1,2 @@
-require("./sorting-3-unique-nums"); 
+require("./two-sum"); 
   console.log('------------------------------------------------------------')
