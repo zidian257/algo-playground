@@ -1,2 +1,2 @@
-require("./non-duplicate-num"); 
+require("./non-decrease-arr"); 
   console.log('------------------------------------------------------------')
