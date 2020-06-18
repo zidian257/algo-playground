@@ -18,6 +18,26 @@
 
 const Node = (val, left = null, right = null) => ({ val, left, right });
 
+// recursive
+// const invertBinTree = root => {
+//   if (!root) {
+//     return;
+//   }
+//
+//   if (!root.left && !root.right) {
+//     return;
+//   }
+//
+//   let tmp = root.right;
+//   root.right = root.left;
+//   root.left = tmp;
+//
+//   invertBinTree(root.left);
+//   invertBinTree(root.right);
+// };
+
+
+// queue
 const invertBinTree = root => {
   if (!root) {
     return;
@@ -27,12 +47,22 @@ const invertBinTree = root => {
     return;
   }
 
-  let tmp = root.right;
-  root.right = root.left;
-  root.left = tmp;
+  const queue = [];
 
-  invertBinTree(root.left);
-  invertBinTree(root.right);
+  queue.push(root);
+
+  while (queue.length > 0) {
+    const curr = queue.pop();
+
+    if (curr && (curr.left || curr.right)) {
+      const temp = curr.left;
+      curr.left = curr.right;
+      curr.right = temp;
+      queue.push(curr.left, curr.right);
+    }
+  }
+
+  return root;
 };
 
 module.exports = {
