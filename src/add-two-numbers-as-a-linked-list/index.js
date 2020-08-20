@@ -18,44 +18,46 @@ l2.next = Node(6);
 l2.next.next = Node(4);
 
 const addTwoNumber = (node1, node2) => {
-  let carry = 0;
-  let cur = 0;
-  const ret = Node(null);
-  let pointer = ret;
-
-  let l1 = node1;
-  let l2 = node2;
-
-  while (l1 || l2) {
-    let l1val = 0;
-    let l2val = 0;
-    if (l1) {
-      l1val = l1.val;
-    }
-
-    if (l2) {
-      l2val = l2.val;
-    }
-
-    cur = l1val + l2val + carry;
-    carry = 0;
-    if (cur >= 10) {
-      cur = cur - 10;
-      carry = 1;
-    }
-
-    pointer.next = Node(cur);
-
-    if (l1) {
-      l1 = l1.next;
-    }
-    if (l2) {
-      l2 = l2.next;
-    }
-    pointer = pointer.next;
+  if (!node1) {
+    return node2;
+  }
+  if (!node2) {
+    return node1;
   }
 
-  return ret.next;
+  let l1 = node1,
+    l2 = node2,
+    carry = 0,
+    sum = 0,
+    v1 = 0,
+    v2 = 0,
+    res = Node(),
+    curr = res;
+
+  while (l1 || l2) {
+    if (l1) {
+      v1 = l1.val;
+      l1 = l1.next;
+    } else {
+      v1 = 0;
+    }
+
+    if (l2) {
+      v2 = l2.val;
+      l2 = l2.next;
+    } else v2 = 0;
+
+    sum = v1 + v2 + carry;
+    if (sum >= 10) {
+      sum = sum - 10;
+      carry = 1;
+    } else carry = 0;
+
+    curr.next = Node(sum);
+    curr = curr.next;
+  }
+
+  return res.next;
 };
 
 module.exports = { addTwoNumber, Node, l1, l2 };

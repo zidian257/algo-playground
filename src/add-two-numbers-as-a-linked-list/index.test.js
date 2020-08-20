@@ -20,18 +20,19 @@ const l3 = Node(4);
 l3.next = Node(5);
 const l4 = Node(9);
 
-test('add works', () => {
-  const ret = addTwoNumber(l1, l2);
-  const ret2 = addTwoNumber(l3, l4);
-  expect(ret.val).toBe(7);
-  expect(ret.next.val).toBe(0);
-  expect(ret.next.next.val).toBe(8);
-  expect(ret2.val).toBe(3);
-  expect(ret2.next.val).toBe(6);
-});
+describe('add-two-numbers-as-a-linked-list', () => {
+  test('add works', () => {
+    const ret = addTwoNumber(l1, l2);
+    const ret2 = addTwoNumber(l3, l4);
+    expect(ret.val).toBe(7);
+    expect(ret.next.val).toBe(0);
+    expect(ret.next.next.val).toBe(8);
+    expect(ret2.val).toBe(3);
+    expect(ret2.next.val).toBe(6);
+  });
 
-
-test('linked list length', () => {
-  const ret = addTwoNumber(l1, l2);
-  expect(ret.next.next.next).toBe(null);
+  test('linked list length', () => {
+    const ret = addTwoNumber(l1, l2);
+    expect(ret.next.next.next).toBe(null);
+  });
 });
