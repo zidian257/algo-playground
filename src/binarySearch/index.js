@@ -1,4 +1,5 @@
-// 这个题目说的是，给你一个递增排序的整数数组 nums，和一个目标值 target。你要在数组里找到 target，然后返回它的下标。如果找不到则返回 -1。
+// 这个题目说的是，给你一个递增排序的整数数组 nums，和一个目标值 target。
+// 你要在数组里找到 target，然后返回它的下标。如果找不到则返回 -1。
 //
 // 比如说，给你的数组是：
 //
@@ -8,7 +9,7 @@
 
 const a = [-2, 0, 2, 4, 5, 8, 9];
 
-const binSearch = (r, x) => {
+const binSearch1 = (r, x) => {
   let low = 0;
   let high = a.length - 1;
   let mid;
@@ -23,6 +24,33 @@ const binSearch = (r, x) => {
   return -1;
 };
 
-const gg = binSearch(a, 9);
+const binSearch = (arr, x) => {
+  let first = 0;
+  let last = arr.length - 1;
+  let mid;
 
-console.log('gg:', gg);
+  while (first < last) {
+    mid = first + (last - first) / 2;
+    if (arr[mid] < x) {
+      first = mid + 1;
+    } else last = mid;
+  }
+
+  return -1;
+};
+
+const lower_bound = (array, first, last, value) => {
+  let mid;
+  while (first < last) {
+    mid = Math.floor(first + (last - first) / 2);
+    if (array[mid] < value) {
+      mid = first + 1;
+    } else mid = last;
+  }
+
+  return first;
+};
+
+// let mid =
+
+module.exports = { binSearch };
