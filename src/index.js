@@ -1,2 +1,2 @@
-require("./bfs"); 
+require("./shortest-path-beijing"); 
   console.log('------------------------------------------------------------')

@@ -4,28 +4,26 @@
 //      /  \     /   \
 //     2    6   10   14
 
+const DFS = (tree, val) => {
+  const stack = [tree];
 
-
-const BFS = (tree, val) => {
-  const q = [tree];
-
-  while (q.length > 0) {
-    const curr = q.shift();
+  while (stack.length > 0) {
+    const curr = stack.pop();
 
     if (curr.val === val) {
       return curr;
     }
 
     if (curr.left) {
-      q.push(curr.left);
+      stack.push(curr.left);
     }
 
     if (curr.right) {
-      q.push(curr.right);
+      stack.push(curr.right);
     }
   }
 
-  return null
+  return null;
 };
 
-module.exports = { BFS }
+module.exports = { DFS };
