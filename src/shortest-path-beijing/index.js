@@ -82,6 +82,7 @@ const findPath = (
   const uphillRoutes = {};
   const downhillRoutes = {};
   const startVertex = adjTable[start];
+  const endVertex = adjTable[end]
 
   const findAllPathsUphill = vertex => {
     const stack = [vertex];
@@ -146,7 +147,7 @@ const findPath = (
   };
 
   findAllPathsUphill(startVertex);
-  findAllPathsDownhill(startVertex);
+  findAllPathsDownhill(endVertex);
   const res = [];
 
   for (let [upVertex, d1] of Object.entries(uphillRoutes)) {
@@ -165,6 +166,5 @@ const findPath = (
   return min(...res);
 };
 
-const s = findPath(elevations, paths);
 
 module.exports = { findPath };
