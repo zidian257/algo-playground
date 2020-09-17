@@ -1,6 +1,8 @@
-// You decided to run every night when you see your roomate is more charming than you because he/she works out regularly.
-//   Now you have a dictionary of places in Beijing. It's in the form of {location: elevation}. And an array of distances you find on Baidu Map connecting each places.
-//   Please find the length of the shortest route on which you can run completely uphill then completely downhill. Assume you live in "Huilongguan".
+//   You decided to run every night when you see your roomate is more charming than you because he/she works out regularly.
+//   Now you have a dictionary of places in Beijing. It's in the form of {location: elevation}.
+//   And an array of distances you find on Baidu Map connecting each places.
+//   Please find the length of the shortest route on which you can run completely uphill then completely downhill.
+//   Assume you live in "Huilongguan".
 // elevations = {"Huilongguan": 5, "Chaoyang Park": 25, "National Stadium": 15, "Olympic Park": 20, "Tsinghua University": 10}
 // paths = {
 // ("Huilongguan", "Chaoyang Park"): 10,
@@ -35,61 +37,134 @@ const paths = [
   { name: 'Tsinghua University__Huilongguan', value: 10 }
 ];
 
-const findShortestPath = (elevations, paths, id = 'Huilongguan') => {
-  const Node = (id, distance, adjs) => ({ id, distance, adjs });
+const min = Math.min;
 
-  const vertices = Object.keys(elevations);
-  const verticesElevs = Object.values(elevations);
+/**
+ *
+ * @param id
+ * @param elevation
+ * @param adjs {id, distance}
+ * @returns {{elevation: *, adjs: {}, id: *}}
+ * @constructor
+ */
+const Vertex = (id, elevation, adjs = []) => ({ id, elevation, adjs });
 
-  const findElevById = id => elevations[id];
-  const findDistanceByIds = (p, q) => {
-    const find = paths.find(
-      x => x.name === `${p}__${q}` || x.name === `${q}__${p}`
-    );
+const findPath = (
+  elevations,
+  paths,
+  start = 'Huilongguan',
+  end = 'Huilongguan'
+) => {
+  // creat adj table
+  // id: {elevation: *, adjs: {}, id: *}
+  const adjTable = {};
 
-    // no find then it's ignored
-    return (find && find.value) || 999;
-  };
   let i;
+  for (i = 0; i < paths.length; i++) {
+    const { name, value } = paths[i];
+    const [from, to] = name.split('__');
+    if (adjTable[from]) {
+      adjTable[from].adjs.push({ to, distance: value });
+    } else {
+      adjTable[from] = Vertex(from, elevations[from]);
+    }
 
-  // construct tree for search
-  // tree should be 4 levels
-  const res = [];
-  const root = Node(id, 0, []);
-
-  for (i = 0; i < vertices.length; i++) {
-    if (vertices[i] !== id && verticesElevs[i] > findElevById(id)) {
-      root.adjs.push(Node(vertices[i], findDistanceByIds(id, vertices[i]), []));
+    if (adjTable[to]) {
+      adjTable[to].adjs.push({ from, distance: value });
+    } else {
+      adjTable[to] = Vertex(to, elevations[to]);
     }
   }
+  const findEdge = (u, v) => adjTable[u].adjs.find(x => x.to === v);
 
-  for (i = 0; i < vertices.length; i++) {
-    for (const levelTwoNode of root.adjs) {
-      if (
-        vertices[i] !== id &&
-        vertices[i] !== levelTwoNode.id &&
-        verticesElevs[i] > findElevById(id)
-      ) {
-        levelTwoNode.adjs.push(
-          Node(
-            vertices[i],
-            levelTwoNode.distance +
-              findDistanceByIds(levelTwoNode.id, vertices[i]),
-            []
-          )
-        );
+  // start-subgraph, search for routes
+  // to - distance k-v
+  const uphillRoutes = {};
+  const downhillRoutes = {};
+  const startVertex = adjTable[start];
 
-        res.push(
-          levelTwoNode.distance +
-            findDistanceByIds(levelTwoNode.id, vertices[i]) +
-            findDistanceByIds(vertices[i], id)
-        );
+  const findAllPathsUphill = vertex => {
+    const stack = [vertex];
+
+    while (stack.length > 0) {
+      const { id, elevation, adjs } = stack.pop();
+      const isStartVertex = id === vertex.id;
+
+      if (adjs.length > 0) {
+        for (let { to, distance } of adjs) {
+          if (!to) continue;
+          if (adjTable[to].elevation > elevation) {
+            if (uphillRoutes[to]) {
+              // visited
+              uphillRoutes[to] = min(
+                uphillRoutes[to],
+                distance + uphillRoutes[id]
+              );
+            } else {
+              // not visited yet
+              uphillRoutes[to] = isStartVertex
+                ? distance
+                : distance + uphillRoutes[id];
+            }
+
+            stack.push(adjTable[to]);
+          }
+        }
+      }
+    }
+  };
+
+  const findAllPathsDownhill = vertex => {
+    const stack = [vertex];
+
+    while (stack.length > 0) {
+      const { id, elevation, adjs } = stack.pop();
+      const isEndVertex = id === vertex.id;
+
+      if (adjs.length > 0) {
+        for (let { from, distance } of adjs) {
+          if (!from) continue;
+          if (adjTable[from].elevation > elevation) {
+            if (downhillRoutes[from]) {
+              // visited
+              downhillRoutes[from] = min(
+                downhillRoutes[from],
+                distance + downhillRoutes[id]
+              );
+            } else {
+              // not visited yet
+              downhillRoutes[from] = isEndVertex
+                ? distance
+                : distance + downhillRoutes[id];
+            }
+
+            stack.push(adjTable[from]);
+          }
+        }
+      }
+    }
+  };
+
+  findAllPathsUphill(startVertex);
+  findAllPathsDownhill(startVertex);
+  const res = [];
+
+  for (let [upVertex, d1] of Object.entries(uphillRoutes)) {
+    for (let [downVertex, d2] of Object.entries(downhillRoutes)) {
+      if (upVertex === downVertex) {
+        res.push(d1 + d2);
+      } else {
+        const e = findEdge(upVertex, downVertex);
+        if (e) {
+          res.push(d1 + d2 + e.distance);
+        }
       }
     }
   }
 
-  return Math.min(...res);
+  return min(...res);
 };
 
-const s = findShortestPath(elevations, paths);
-console.log('s:', s);
+const s = findPath(elevations, paths);
+
+module.exports = { findPath };
