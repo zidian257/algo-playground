@@ -9,48 +9,77 @@
 
 const a = [-2, 0, 2, 4, 5, 8, 9];
 
-const binSearch1 = (r, x) => {
-  let low = 0;
-  let high = a.length - 1;
-  let mid;
-
-  while (low <= high) {
-    mid = Math.floor(low + (high - low) / 2);
-    if (r[mid] > x) high = mid - 1;
-    if (r[mid] < x) low = mid + 1;
-    else return mid;
+const bin_search = (nums, target) => {
+  if (!nums) {
+    return -1;
   }
+  let left = 0,
+    right = nums.length - 1,
+    mid;
 
+  while (left <= right) {
+    mid = Math.floor(left + (right - left) / 2);
+    if (nums[mid] < target) {
+      left = mid + 1;
+    } else if (nums[mid] > target) {
+      right = mid - 1;
+    } else if (nums[mid] === target) {
+      return mid;
+    }
+  }
   return -1;
 };
 
-const binSearch = (arr, x) => {
-  let first = 0;
-  let last = arr.length - 1;
-  let mid;
+const left_bound = (nums, target) => {
+  if (!nums) {
+    return -1;
+  }
+  let left = 0,
+    right = nums.length - 1,
+    mid;
 
-  while (first < last) {
-    mid = first + (last - first) / 2;
-    if (arr[mid] < x) {
-      first = mid + 1;
-    } else last = mid;
+  while (left <= right) {
+    mid = Math.floor(left + (right - left) / 2);
+    if (nums[mid] > target) {
+      right = mid - 1;
+    } else if (nums[mid] < target) {
+      left = mid + 1;
+    } else if (nums[mid] === target) {
+      right = mid - 1;
+    }
   }
 
-  return -1;
-};
-
-const lower_bound = (array, first, last, value) => {
-  let mid;
-  while (first < last) {
-    mid = Math.floor(first + (last - first) / 2);
-    if (array[mid] < value) {
-      mid = first + 1;
-    } else mid = last;
+  if (nums[left] !== target || left > nums.length) {
+    return -1;
   }
 
-  return first;
+  return left;
 };
 
-// let mid =
+const right_bound = (nums, target) => {
+  if (!nums) {
+    return -1;
+  }
+  let left = 0,
+    right = nums.length - 1,
+    mid;
 
-module.exports = { binSearch };
+  while (left <= right) {
+    mid = Math.floor(left + (right - left) / 2);
+
+    if (nums[mid] > target) {
+      right = mid - 1;
+    } else if (nums[mid] < target) {
+      left = mid + 1;
+    } else if (nums[mid] === target) {
+      left = mid + 1;
+    }
+  }
+  if (right < 0 || nums[right] !== target) {
+    return -1;
+  }
+
+  return right;
+};
+
+module.exports = { bin_search, left_bound, right_bound };
