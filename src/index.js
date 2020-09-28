@@ -1,2 +1,2 @@
-require("./insertion-sort"); 
+require("./sorting-algorithms"); 
   console.log('------------------------------------------------------------')
