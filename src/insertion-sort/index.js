@@ -10,7 +10,7 @@ const insertion_sort = arr => {
     const toInsertValue = arr[i];
     let j = i;
 
-    while (j > 0 && toInsertValue < arr[j]) {
+    while (j > 0 && toInsertValue < arr[j - 1]) {
       arr[j] = arr[j - 1];
       j--;
     }
