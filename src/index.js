@@ -1,2 +1,2 @@
-require("./shortest-path-beijing"); 
+require("./insertion-sort"); 
   console.log('------------------------------------------------------------')
