@@ -2,6 +2,19 @@
 // 计数排序是一个稳定排序。
 // 计数排序不是比较排序，因此不被 O(nlog(n)) 的下界限制。
 
+
+
+// 计数排序（Counting Sort）是一种线性时间的排序算法。
+//
+// 它的工作原理是使用一个额外的数组 C ，其中第 i 个元素是待排序数组 arr 中值等于 i 的元素的个数
+// 然后根据数组 C 来将 A 中的元素排到正确的位置。
+//
+// 计数排序的工作过程分为三个步骤：
+//
+// 计算每个数出现了几次；
+// 求出每个数出现次数的前缀和；
+// 利用出现次数的前缀和，从右至左计算每个数的排名。
+
 module.exports.counting_sort = arr => {
   // js version
   const c = [];
@@ -44,13 +57,17 @@ module.exports.counting_sort_common = arr => {
     c[i] = c[i - 1] + (c[i] || 0);
   }
 
-  c
   for (let i = arr.length - 1; i >= 0; i--) {
     const target = arr[i];
     const rank = c[target];
     d[rank] = arr[i];
     c[target] = rank - 1;
   }
+
+  // d 是一个 ranking 数组，下标即为原先的 ranking
+  // ranking 这个概念是没有 0的
+  // 计数是从 1 开始的
+  // 所以不需要 d[0]
 
   d.shift()
   return d;
