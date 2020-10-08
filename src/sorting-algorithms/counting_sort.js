@@ -57,15 +57,22 @@ module.exports.counting_sort_common = arr => {
     c[i] = c[i - 1] + (c[i] || 0);
   }
 
+  // c 数组目前是 arr 的 ranking
+  // 数组结构: { index: 值, item: ranking 排位 }
+  // 按照从 arr.length - 1 开始数
+  // 依次把 arr[i] 的 ranking 从 c 取出
+  // 把 arr[i] 按照 ranking 塞进 d[ranking] 中
   for (let i = arr.length - 1; i >= 0; i--) {
     const target = arr[i];
     const rank = c[target];
-    d[rank] = arr[i];
+    d[rank] = target;
     c[target] = rank - 1;
   }
 
-  // d 是一个 ranking 数组，下标即为原先的 ranking
-  // ranking 这个概念是没有 0的
+
+
+  // d[] 是一个 ranking 数组，下标即为原先的 c[] 中的 ranking
+  // ranking 这个概念是没有 0 的
   // 计数是从 1 开始的
   // 所以不需要 d[0]
 
