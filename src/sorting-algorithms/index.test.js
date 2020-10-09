@@ -3,6 +3,7 @@ const { bubble_sort } = require('./bubble_sort');
 const { selection_sort } = require('./selection_sort');
 const { counting_sort, counting_sort_common } = require('./counting_sort');
 const { radix_sort } = require('./radix_sort');
+const { quick_sort } = require('./quick_sort');
 
 const a = [1, 2, 3, 4, 5, 6, 7, 324, 5431];
 
@@ -50,4 +51,7 @@ describe('sorting algorithms', function() {
     expect(radix_sort(randomize(a), 4)).toEqual(a);
   });
 
+  test('quick_sort works', function() {
+    expect(quick_sort(randomize(a))).toEqual(a);
+  });
 });
