@@ -49,4 +49,26 @@ const quick_sort = (arr, left = 0, right = arr.length - 1) => {
 
   return arr;
 };
-module.exports = { quick_sort };
+
+const quick_sort_non_recursive = (arr, left = 0, right = arr.length - 1) => {
+  const stack = [];
+
+  if (right > left) {
+    const pivotIndex = partition(arr, left, right);
+    stack.push({ left, right: pivotIndex - 1 });
+    stack.push({ left: pivotIndex + 1, right });
+  }
+
+  while (stack.length > 0) {
+    const { left, right } = stack.pop();
+
+    if (right > left) {
+      const pivotIndex = partition(arr, left, right);
+      stack.push({ left, right: pivotIndex - 1 });
+      stack.push({ left: pivotIndex + 1, right });
+    }
+  }
+
+  return arr;
+};
+module.exports = { quick_sort, quick_sort_non_recursive };
