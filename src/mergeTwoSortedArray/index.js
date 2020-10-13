@@ -1,4 +1,5 @@
-// 这个题目说的是，给你两个递增排序的数组，你要把第二个数组合并到第一个，并使其仍然保持递增排序。两个数组中的元素个数会显式地给出，并且第一个数组的大小可以容纳下两个数组中所有的元素。
+// 这个题目说的是，给你两个递增排序的数组，你要把第二个数组合并到第一个，并使其仍然保持递增排序。
+// 两个数组中的元素个数会显式地给出，并且第一个数组的大小可以容纳下两个数组中所有的元素。
 //
 // 比如说给你的两个数组是：
 //
@@ -47,15 +48,16 @@ const mergeTwoSortedArray2 = (a, b) => {
     i--;
   }
 
+  while (q >= 0) a[i--] = b[q--];
   return a;
 };
 
-const a = [1, 7];
-const b = [2, 3, 4, 5];
+const a = [2, 3];
+const b = [1];
 
-// const gg = mergeTwoSortedArray(a1, 2, a2, 2);
+// const gg = mergeTwoSortedArray(a, 1, b, 1);
 
-const ss = mergeTwoSortedArray2(a, b);
-// console.log('gg:', gg);
+const gg = mergeTwoSortedArray2(a, b);
+console.log('gg:', gg);
 
-console.log('ss:', ss);
+// console.log('ss:', ss);
