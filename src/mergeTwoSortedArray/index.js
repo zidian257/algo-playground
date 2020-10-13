@@ -31,5 +31,31 @@ const mergeTwoSortedArray = (arr1, m, arr2, n) => {
   return arr1;
 };
 
-const gg = mergeTwoSortedArray(a1, 2, a2, 2);
-console.log('gg:', gg);
+const mergeTwoSortedArray2 = (a, b) => {
+  let i = a.length + b.length - 1;
+  let p = a.length - 1,
+    q = b.length - 1;
+
+  while (p >= 0 && q >= 0) {
+    if (a[p] > b[q]) {
+      a[i] = a[p];
+      p--;
+    } else {
+      a[i] = b[q];
+      q--;
+    }
+    i--;
+  }
+
+  return a;
+};
+
+const a = [1, 7];
+const b = [2, 3, 4, 5];
+
+// const gg = mergeTwoSortedArray(a1, 2, a2, 2);
+
+const ss = mergeTwoSortedArray2(a, b);
+// console.log('gg:', gg);
+
+console.log('ss:', ss);
