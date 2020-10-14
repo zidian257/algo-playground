@@ -38,7 +38,7 @@ const heap_sort = arr => {
   // 建最大堆完成，每次取出堆顶元素，放在指针那一位
   // 再重新建堆
   // 指针左移
-  for (let i = arr.length - 1; i >= 0; i--) {
+  for (let i = arr.length - 1; i > 0; i--) {
     swap(arr, i, 0);
     max_heapify(arr, 0, i - 1);
   }
