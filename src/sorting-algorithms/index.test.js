@@ -6,6 +6,7 @@ const { radix_sort } = require('./radix_sort');
 const { quick_sort } = require('./quick_sort');
 const { quick_sort_non_recursive } = require('./quick_sort');
 const { merge_sort } = require('./merge_sort');
+const { heap_sort } = require('./heap_sort');
 
 const a = [1, 2, 3, 4, 5, 6, 7, 324, 5431];
 
@@ -63,5 +64,9 @@ describe('sorting algorithms', function() {
 
   test('merge_sort works', function() {
     expect(merge_sort(randomize(a))).toEqual(a);
+  });
+
+  test('heap_sort works', function() {
+    expect(heap_sort(randomize(a))).toEqual(a);
   });
 });
