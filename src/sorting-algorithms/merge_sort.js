@@ -25,6 +25,7 @@ const merge_sort = (arr, start = 0, end = arr.length - 1) => {
   let p = mid;
   let q = end;
 
+  // 把上一步中得到的数组中两个有序的部分合并起来
   // 左侧数组和右侧数组的最左边为边界
   while (p >= start && q >= mid + 1) {
     if (arr[p] < arr[q]) {
