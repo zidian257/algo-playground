@@ -17,6 +17,8 @@ const insertion_sort = arr => {
     let j = i;
 
     while (j > 0 && toInsertValue < arr[j - 1]) {
+      // 为 要插入的值，腾出位置
+      // 把每一个值向后退
       arr[j] = arr[j - 1];
       j--;
     }
