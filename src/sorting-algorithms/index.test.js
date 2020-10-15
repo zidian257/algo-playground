@@ -7,6 +7,7 @@ const { quick_sort } = require('./quick_sort');
 const { quick_sort_non_recursive } = require('./quick_sort');
 const { merge_sort } = require('./merge_sort');
 const { heap_sort } = require('./heap_sort');
+const { bucket_sort } = require('./bucket_sort');
 
 const a = [1, 2, 3, 4, 5, 6, 7, 324, 5431];
 
@@ -68,5 +69,9 @@ describe('sorting algorithms', function() {
 
   test('heap_sort works', function() {
     expect(heap_sort(randomize(a))).toEqual(a);
+  });
+
+  test('bucket_sort works', function() {
+    expect(bucket_sort(randomize(a), 5431)).toEqual(a);
   });
 });
