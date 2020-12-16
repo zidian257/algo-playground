@@ -5,50 +5,52 @@ exports.deepClone = a => {
   const getType = x => typeof x;
 
   // number string boolean undefined null bigint symbol
-  const isPrimitive = x =>
-    getType(x) === 'number' ||
-    getType(a) === 'string' ||
-    getType(a) === 'boolean' ||
-    getType(a) === 'undefined' ||
-    getType(a) === 'bigint' ||
-    getType(a) === 'symbol' ||
-    a === null;
-
-  if (getType(a) === 'function') {
-    throw new Error('not supported function');
-  }
+  const isPrimitive = x => {
+    if (getType(a) === 'function') {
+      throw new Error('function is not supported');
+    }
+    return (
+      getType(x) === 'number' ||
+      getType(a) === 'string' ||
+      getType(a) === 'boolean' ||
+      getType(a) === 'undefined' ||
+      getType(a) === 'bigint' ||
+      getType(a) === 'symbol' ||
+      a === null
+    );
+  };
 
   // 原生类型
   if (isPrimitive(a)) {
     return a;
   }
 
-  const b = Array.isArray(a) ? [] : {}
-  const visited_value_key_store = new Map()
+  const b = Array.isArray(a) ? [] : {};
+  const visited_map = new Map();
 
   // object
-  const stack = [a]
-  let curr
+  const stack = [[a, b]];
+  visited_map.set(a, b);
 
-  while(stack.length > 0) {
+  while (stack.length > 0) {
+    const [p, q] = stack.pop();
 
-    curr = stack.pop()
-
-    if (visited_value_key_store.has(curr)) {
-      // 已经遍历过了
-      const key = visited_value_key_store.get(curr)
-      b[key] = curr
-    } else {
-
-
+    for (let key in p) {
+      if (p.hasOwnProperty(key)) {
+        if (isPrimitive(p[key])) {
+          q[key] = p[key];
+        } else {
+          if (visited_map.has(p[key])) {
+            q[key] = visited_map.get(p[key]);
+          } else {
+            q[key] = Array.isArray(p[key]) ? [] : {};
+            visited_map.set(p[key], q[key]);
+            stack.push([p[key], q[key]]);
+          }
+        }
+      }
     }
-
-
-
-
-
   }
 
-
-
+  return b;
 };
