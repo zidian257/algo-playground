@@ -6,14 +6,13 @@ const json_log_recursive = a => {
   // 环检测
   const visited_set = new Set();
 
-  // number string boolean undefined null bigint symbol
+  // number string boolean undefined null bigint
   const isSupportPrimitive = x =>
     typeof x === 'number' ||
     typeof x === 'string' ||
     typeof x === 'boolean' ||
     typeof x === 'undefined' ||
     typeof x === 'bigint' ||
-    typeof x === 'symbol' ||
     x === null;
 
   const str_arr = [];
