@@ -1,6 +1,6 @@
 exports.deepClone = a => {
   const toString = x => Object.prototype.toString.call(x);
-  const getDetailType = x => toString(x).slice(7, -1);
+  // const getDetailType = x => toString(x).slice(8, -1);
 
   const getType = x => typeof x;
 
