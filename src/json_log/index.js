@@ -21,7 +21,6 @@ const json_log_recursive = a => {
     if (isObject(o)) {
       if (visited_set.has(o)) {
         target_arr.push('"[[circular structure]]"');
-        visited_set.clear();
         return;
       }
 
@@ -39,8 +38,8 @@ const json_log_recursive = a => {
           target_arr.push(',');
         }
       }
-      // 去除最后一个逗号
 
+      // 去除最后一个逗号
       if (keys.length > 0 ) {
         target_arr.splice(target_arr.length - 1, 1);
       }

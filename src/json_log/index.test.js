@@ -26,4 +26,16 @@ describe('json', () => {
     const ret = json_log_recursive(a);
     expect(ret).toBe('{"b":{"x":{},"f":{}},"c":{}}');
   });
+
+  test('circular2', () => {
+    const a = { b: {}, c: {} };
+    a.b.f = a.c;
+    a.c.f = a.b;
+    a.c.g = a.b;
+
+    const ret = json_log_recursive(a);
+
+    console.log('ret:', ret);
+    // expect(ret).toBe('{"b":{"x":{},"f":{}},"c":{}}');
+  });
 });
