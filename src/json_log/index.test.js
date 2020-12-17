@@ -17,4 +17,13 @@ describe('json', () => {
       '{"b":{"f":{"f":"[[circular structure]]"}},"c":{"f":{"f":"[[circular structure]]"}}}'
     );
   });
+
+  test('circular1', () => {
+    const a = { b: {}, c: {} };
+    a.b.x = a.c;
+    a.b.f = a.c;
+
+    const ret = json_log_recursive(a);
+    expect(ret).toBe('{"b":{"x":{},"f":{}},"c":{}}');
+  });
 });

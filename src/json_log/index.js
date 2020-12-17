@@ -20,13 +20,15 @@ const json_log_recursive = a => {
   const walk = (o, target_arr) => {
     if (isObject(o)) {
       if (visited_set.has(o)) {
-        visited_set.clear();
         target_arr.push('"[[circular structure]]"');
+        visited_set.clear();
         return;
       }
 
       visited_set.add(o);
       target_arr.push(Array.isArray(o) ? '[' : '{');
+
+      const keys = Reflect.ownKeys(o);
 
       for (let key in o) {
         if (o.hasOwnProperty(key)) {
@@ -38,8 +40,12 @@ const json_log_recursive = a => {
         }
       }
       // 去除最后一个逗号
-      target_arr.splice(target_arr.length - 1, 1);
+
+      if (keys.length > 0 ) {
+        target_arr.splice(target_arr.length - 1, 1);
+      }
       target_arr.push(Array.isArray(o) ? ']' : '}');
+      visited_set.clear();
     } else if (isSupportPrimitive(o)) {
       if (o === undefined) {
         o = null;
