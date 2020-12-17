@@ -20,7 +20,8 @@ const json_log_recursive = a => {
   const walk = (o, target_arr) => {
     if (isObject(o)) {
       if (visited_set.has(o)) {
-        target_arr.push('[[circular structure]]');
+        visited_set.clear();
+        target_arr.push('"[[circular structure]]"');
         return;
       }
 
