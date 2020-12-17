@@ -6,17 +6,17 @@ exports.deepClone = a => {
 
   // number string boolean undefined null bigint symbol
   const isPrimitive = x => {
-    if (getType(a) === 'function') {
+    if (getType(x) === 'function') {
       throw new Error('function is not supported');
     }
     return (
       getType(x) === 'number' ||
-      getType(a) === 'string' ||
-      getType(a) === 'boolean' ||
-      getType(a) === 'undefined' ||
-      getType(a) === 'bigint' ||
-      getType(a) === 'symbol' ||
-      a === null
+      getType(x) === 'string' ||
+      getType(x) === 'boolean' ||
+      getType(x) === 'undefined' ||
+      getType(x) === 'bigint' ||
+      getType(x) === 'symbol' ||
+      x === null
     );
   };
 
