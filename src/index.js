@@ -1,2 +1,2 @@
-require("./json_log");
+require("./javascript-basics"); 
   console.log('------------------------------------------------------------')
