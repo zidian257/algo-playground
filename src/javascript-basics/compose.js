@@ -3,7 +3,7 @@
 // var greet = compose(hello, toUpperCase);
 // greet('kevin');
 // 从右边开始计算
-const composeLeft = (...fns) => {
+const pipe = (...fns) => {
   return function(...args) {
     return fns.reduce((accu, curr, index) => {
       if (index === 0) {
@@ -19,11 +19,11 @@ const hello = str => console.log(str + ' world!!!');
 
 const toUpperCase = str => str.toUpperCase();
 
-const greet = composeLeft(toUpperCase, hello);
+const greet = pipe(toUpperCase, hello);
 
 greet('bh');
 
-// 从左边开始计算
+// 从右边开始计算
 const compose = (...fns) => {
   return function(...args) {
     let ret = args;
