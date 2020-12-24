@@ -26,7 +26,7 @@ greet('bh');
 // 从右边开始计算
 const compose = (...fns) => {
   return function(...args) {
-    let ret = args;
+    let ret;
     let first = true;
     while (fns.length > 0) {
       const fn = fns.pop();
