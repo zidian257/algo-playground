@@ -48,40 +48,31 @@ const greet2 = compose(hello, toUpperCase);
 //
 // Un.request = composeP(mid1, mid2, request);
 
-const mid1 = (config, next) => {
+const mid1 = next => config => {
   // do something with config
   return next(config).then(res => {
     // do something with return value
-    res.a = 3;
+    res.mid1 = 3;
     return res;
   });
 };
 
-const mid2 = async (config, next) => {
+const mid2 = next => config => {
   // do something with config
-
-  const res = await next(config);
-
-  res.b = 4;
-  return res;
+  config.mid2 = 3;
+  return next(config).then(res => {
+    // do something with return value
+    res.mid2 = 3;
+    return res;
+  });
 };
 
 //
 // const request = composeP([mid1, mid2, request])
 // request(these).then(that)
 
-const composeP = (middleware, request) => {
-  return config => {
-
-
-
-
-
-    return middleware.reduce((accu, curr) => {
-      return curr(config, accu);
-    }, request);
-  };
-};
+const composeP = middleware =>
+  middleware.reduce((prev, curr) => (...args) => prev(curr(...args)));
 
 const originRq = config => {
   return new Promise((resolve, reject) => {
@@ -93,16 +84,16 @@ const originRq = config => {
   });
 };
 
-const logger =  (config, next) => {
-  console.log('config:', config);
+const logger = next => config => {
+  console.log('logger config:', config);
   return next(config).then(r => {
-    console.log(r);
+    console.log('logger res', r);
 
     return r;
   });
 };
 
-const request = composeP([mid1, mid2, logger], originRq);
+const request = composeP([logger, mid1, mid2])(originRq);
 
 request({
   cf: 32
