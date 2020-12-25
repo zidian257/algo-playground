@@ -1,100 +1,66 @@
-// non async compose
+// compose
+// compose(g,f) 等价于 args => g(f(args))
+// 函数运行顺序从右向左
 
-// var greet = compose(hello, toUpperCase);
-// greet('kevin');
-// 从右边开始计算
-const pipe = (...fns) => {
-  return function(...args) {
-    return fns.reduce((accu, curr, index) => {
-      if (index === 0) {
-        return curr(...args);
-      } else {
-        return curr(accu);
-      }
-    }, 0);
-  };
-};
-
-const hello = str => console.log(str + ' world!!!');
-
-const toUpperCase = str => str.toUpperCase();
-
-const greet = pipe(toUpperCase, hello);
-
-// greet('bh');
-
-// 从右边开始计算
+// 实现与 redux compose 一致
 const compose = (...fns) => {
-  return function(...args) {
-    let ret;
-    let first = true;
-    while (fns.length > 0) {
-      const fn = fns.pop();
-      ret = first ? fn(...args) : fn(ret);
-      first = false;
+  fns.forEach(fn => {
+    if (typeof fn !== 'function') {
+      throw new TypeError('fn should be a function');
     }
-    return ret;
-  };
-};
-
-const greet2 = compose(hello, toUpperCase);
-
-// greet2('bh');
-
-// async compose
-//
-
-// Un.request(config).then();
-//
-// Un.request = composeP(mid1, mid2, request);
-
-const mid1 = next => config => {
-  // do something with config
-  return next(config).then(res => {
-    // do something with return value
-    res.mid1 = 3;
-    return res;
   });
+
+  if (fns.length === 1) {
+    return fns[0];
+  }
+
+  return fns.reduce((prev, curr) => (...args) => prev(curr(...args)));
 };
 
-const mid2 = next => config => {
-  // do something with config
-  config.mid2 = 3;
-  return next(config).then(res => {
-    // do something with return value
-    res.mid2 = 3;
-    return res;
-  });
+// compose 用法 1
+// 与 pipe 一致的功能
+const upper = str => str.toUpperCase();
+const hello = str => console.log('hello, ' + str);
+
+const greet = compose(hello, upper);
+greet('iuy');
+
+// compose 用法 2
+// 作为中间件引擎的存在
+// 实现一个洋葱模型
+
+const mid1 = next => options => {
+  options.mid1 = true;
+  return next(options).then(r => r);
 };
 
-//
-// const request = composeP([mid1, mid2, request])
-// request(these).then(that)
-
-const composeP = middleware =>
-  middleware.reduce((prev, curr) => (...args) => prev(curr(...args)));
-
-const originRq = config => {
-  return new Promise((resolve, reject) => {
-    setTimeout(() => {
-      resolve({
-        origin: 32
-      });
-    }, 1999);
-  });
-};
-
-const logger = next => config => {
-  console.log('logger config:', config);
-  return next(config).then(r => {
-    console.log('logger res', r);
-
+const mid2 = next => options => {
+  return next(options).then(r => {
+    r.mid2 = true;
     return r;
   });
 };
 
-const request = composeP([logger, mid1, mid2])(originRq);
+const loggerBefore = next => options => {
+  console.log('options', options);
+  return next(options).then(r => r);
+};
 
-request({
-  cf: 32
-});
+const loggerAfter = next => options => {
+  return next(options).then(r => {
+    console.log('res', r);
+    return r;
+  });
+};
+
+const req = option => {
+  return new Promise((resolve, reject) => {
+    setTimeout(() => {
+      resolve({ resolve: 3 });
+    }, 1000);
+  });
+};
+
+const newReq = compose(loggerAfter, mid2, mid1, loggerBefore)(req);
+
+newReq({ config: '3' });
