@@ -9,7 +9,6 @@ const mid1 = async (ctx, next) => {
 
 const mid2 = async (ctx, next) => {
   console.log('in mid2:');
-
   await next();
   console.log('out mid2:');
 };
@@ -37,18 +36,24 @@ const compose = (...fns) => {
   };
 };
 
-const myCompose = (fns) => {
+const myCompose = (...fns) => {
+  return (ctx, next) => {
+    const createNext = (newNext, oldNext) => {
+      return async function() {
+        return await newNext(ctx, oldNext);
+      };
+    };
 
+    let ret = next;
+    while (fns.length > 0) {
+      const fn = fns.pop();
+      ret = createNext(fn, ret);
+    }
 
-  return
+    return ret();
+  };
+};
 
-
-
-
-
-}
-
-
-const composed = compose(mid1, mid2);
+const composed = myCompose(mid1, mid2);
 
 composed({}, async () => console.log('end'));
