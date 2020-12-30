@@ -47,6 +47,7 @@ const myCompose = (...fns) => {
     let ret = next;
     while (fns.length > 0) {
       const fn = fns.pop();
+      // 其实可以使用 reduce
       ret = createNext(fn, ret);
     }
 
@@ -54,6 +55,26 @@ const myCompose = (...fns) => {
   };
 };
 
-const composed = myCompose(mid1, mid2);
+const myCompose2 = (...fns) => {
+  return (ctx, next) => {
+    // 从右边开始 reduce
+    return fns.reduceRight(
+      // 重点是，每次都返回一个函数，而不是函数执行的结果
+      (prev, curr) => () => curr(ctx, prev),
+      next
+    )();
+  };
+};
 
-composed({}, async () => console.log('end'));
+const composed = myCompose2(mid1, mid2);
+
+const sleep = ms =>
+  new Promise((resolve, reject) => {
+    setTimeout(resolve, ms);
+  });
+
+composed({}, async () => {
+  console.log('end');
+
+  await sleep(1000);
+});

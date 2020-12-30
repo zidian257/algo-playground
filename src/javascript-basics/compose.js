@@ -14,7 +14,9 @@ const compose = (...fns) => {
     return fns[0];
   }
 
-  return fns.reduce((prev, curr) => (...args) => prev(curr(...args)));
+  // 如此写，args 可能是另一个函数
+  // 这样返回值 fn(next) 再返回一个函数
+  return fns.reduceRight((prev, curr) => (...args) => curr(prev(...args)));
 };
 
 // compose 用法 1
@@ -23,7 +25,7 @@ const upper = str => str.toUpperCase();
 const hello = str => console.log('hello, ' + str);
 
 const greet = compose(hello, upper);
-greet('iuy');
+greet('iufasdfy');
 
 // compose 用法 2
 // 作为中间件引擎的存在
