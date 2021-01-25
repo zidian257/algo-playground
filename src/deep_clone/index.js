@@ -1,4 +1,5 @@
 exports.deepClone = a => {
+  // 如果是原始数据类型 就拷贝过去，如果不是，就压栈
   const toString = x => Object.prototype.toString.call(x);
   // const getDetailType = x => toString(x).slice(8, -1);
 
@@ -40,6 +41,7 @@ exports.deepClone = a => {
         if (isPrimitive(p[key])) {
           q[key] = p[key];
         } else {
+          // 非 object
           if (visited_map.has(p[key])) {
             q[key] = visited_map.get(p[key]);
           } else {

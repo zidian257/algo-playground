@@ -116,7 +116,10 @@ const new2 = function() {
 
   const isObject = x => typeof x === 'object';
 
+  // 构造函数有返回值 且为对象，则返回这个对象
+  // 否则 返回空 obj
+
   // 如果原函数的返回值不是 对象，则返回非对象
   // 否则返回我们新建的实例
-  return isObject(ret) ? obj : ret;
+  return isObject(ret) ? ret : obj;
 };
