@@ -18,28 +18,28 @@ const asyncCall = anything =>
 
 
 function sendRequest(urls, limit, cb) {
-  let responses = [];
-  let promisesWannabes = [];
-  let resolvedCalls = 0;
+  let rsps = [];
+  let fns = [];
+  let resolved = 0;
 
   const genOnePromise = (url, index) => async () => {
-    responses[index] = await asyncCall(url);
-    resolvedCalls += 1;
+    rsps[index] = await asyncCall(url);
+    resolved += 1;
 
-    if (promisesWannabes.length > 0) {
-      promisesWannabes.shift()();
+    if (fns.length > 0) {
+      fns.shift()();
     }
 
-    if (resolvedCalls === urls.length) {
-      cb(responses);
+    if (resolved === urls.length) {
+      cb(rsps);
     }
   };
 
-  promisesWannabes = urls.map((url, index) => genOnePromise(url, index));
+  fns = urls.map((url, index) => genOnePromise(url, index));
 
   for (let i = 0; i < limit; i++) {
-    if (promisesWannabes.length > 0) {
-      promisesWannabes.shift()();
+    if (fns.length > 0) {
+      fns.shift()();
     }
   }
 }
